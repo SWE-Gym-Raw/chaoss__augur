@@ -30,7 +30,7 @@ def get_list_of_all_users():
     return users
 
 
-def get_required_conditions_for_core_repos(allow_collected_before = False, days_until_collect_again = 1):
+def get_required_conditions_for_core_repos(allow_collected_before = False, days_until_collect_again = 14):
 
     if not allow_collected_before:
         condition_concat_string = f"""
@@ -48,7 +48,7 @@ def get_required_conditions_for_core_repos(allow_collected_before = False, days_
     
     return condition_concat_string
 
-def get_required_conditions_for_secondary_repos(allow_collected_before = False, days_until_collect_again = 1):
+def get_required_conditions_for_secondary_repos(allow_collected_before = False, days_until_collect_again = 14):
 
     if not allow_collected_before:
         condition_concat_string = f"""
@@ -68,7 +68,7 @@ def get_required_conditions_for_secondary_repos(allow_collected_before = False, 
     
     return condition_concat_string
 
-def get_required_conditions_for_facade_repos(allow_collected_before = False, days_until_collect_again = 1):
+def get_required_conditions_for_facade_repos(allow_collected_before = False, days_until_collect_again = 21):
 
     if not allow_collected_before:
         condition_concat_string = f"""
@@ -92,7 +92,7 @@ def get_required_conditions_for_facade_repos(allow_collected_before = False, day
     
     return condition_concat_string
 
-def get_required_conditions_for_ml_repos(allow_collected_before = False, days_until_collect_again = 1):
+def get_required_conditions_for_ml_repos(allow_collected_before = False, days_until_collect_again = 30):
 
     if not allow_collected_before:
         condition_concat_string = f"""
