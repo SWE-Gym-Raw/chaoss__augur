@@ -56,8 +56,8 @@ setup(
         "psutil==5.8.0", # 5.9.1
         "gunicorn==22.0.0", # 20.1.0
         "six==1.15.0", # 1.16.0
-        "bokeh==2.0.2", # 2.4.3
-        "selenium==3.141.0",# 4.4.3
+        "bokeh",#==2.0.2", # 2.4.3
+        "selenium",#==3.141.0",# 4.4.3
         "dask>=2021.6.2", # 2022.8.1
         "cloudpickle >= 0.2.2", # 2.1.0
         "fsspec >= 0.6.0", # 2022.7.1
@@ -86,7 +86,7 @@ setup(
         'Werkzeug~=2.0.0',
         "pylint==2.15.5",
 	    "mdpdf==0.0.18",
-        "typing-extensions==4.7.1",
+        "typing-extensions~=4.9",#==4.7.1",
         "tenacity==8.3.0",
     ],
     extras_require={

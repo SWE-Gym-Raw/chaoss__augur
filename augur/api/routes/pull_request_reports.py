@@ -338,8 +338,8 @@ def add_caption_to_plot(caption_plot, caption):
         y_units='screen',
         text='{}'.format(caption),
         text_font='times',  # Use same font as paper
-        text_font_size='15pt',
-        render_mode='css'
+        text_font_size='15pt'#,
+        #render_mode='css'
     ))
     caption_plot.outline_line_color = None
 
@@ -551,13 +551,13 @@ def average_commits_per_PR():
     title_beginning = '{}: '.format(repo_dict[repo_id])
     title = "{}Average Commit Counts Per Year for {} Pull Requests".format(title_beginning, description)
 
-    plot_width = len(x_groups) * 300
+    width = len(x_groups) * 300
     title_text_font_size = 16
 
-    if (len(title) * title_text_font_size / 2) > plot_width:
-        plot_width = int(len(title) * title_text_font_size / 2) + 40
+    if (len(title) * title_text_font_size / 2) > width:
+        width = int(len(title) * title_text_font_size / 2) + 40
 
-    p = figure(x_range=FactorRange(*x), plot_height=450, plot_width=plot_width, title=title,
+    p = figure(x_range=FactorRange(*x), height=450, width=width, title=title,
                 y_range=(0, max(merged_avg_values + not_merged_avg_values) * 1.15), toolbar_location=None)
 
     # Vertical bar glyph
@@ -589,7 +589,7 @@ def average_commits_per_PR():
 
     plot = p
 
-    p = figure(width=plot_width, height=200, margin=(0, 0, 0, 0))
+    p = figure(width=width, height=200, margin=(0, 0, 0, 0))
     caption = "This graph shows the average commits per pull requests over an entire year," \
                 " for merged and not merged pull requests."
     p = add_caption_to_plot(p, caption)
@@ -610,8 +610,8 @@ def average_commits_per_PR():
         # opts = FirefoxOptions()
     # opts.add_argument("--headless")
     # driver = webdriver.Firefox(firefox_options=opts)
-    # filename = export_png(grid, timeout=180, webdriver=webdriver)
-    filename = export_png(grid, timeout=180)
+    # filename = export_png(grid, timeout=400, webdriver=webdriver)
+    filename = export_png(grid, timeout=400)
 
     return send_file(filename)
 
@@ -668,8 +668,8 @@ def average_comments_per_PR():
     len_merged = len(driver_df.loc[driver_df['merged_flag'] == 'Merged / Accepted'])
 
     title_beginning = '{}: '.format(repo_dict[repo_id])
-    plot_width = 650
-    p = figure(y_range=y_groups, plot_height=450, plot_width=plot_width,
+    width = 650
+    p = figure(y_range=y_groups, height=450, width=width,
                 # y_range=y_groups,#(pr_all[y_axis].min(),pr_all[y_axis].max()) #y_axis_type="datetime",
                 title='{} {}'.format(title_beginning, "Mean Comments for {} Pull Requests".format(description)),
                 toolbar_location=None)
@@ -771,7 +771,7 @@ def average_comments_per_PR():
 
     plot = p
 
-    p = figure(width=plot_width, height=200, margin=(0, 0, 0, 0))
+    p = figure(width=width, height=200, margin=(0, 0, 0, 0))
     caption = "This graph shows the average number of comments per merged or not merged pull request."
 
     p = add_caption_to_plot(p, caption)
@@ -792,7 +792,7 @@ def average_comments_per_PR():
         # opts = FirefoxOptions()
     # opts.add_argument("--headless")
     # driver = webdriver.Firefox(firefox_options=opts)
-    filename = export_png(grid, timeout=180)
+    filename = export_png(grid, timeout=400)
 
     return send_file(filename)
 
@@ -852,12 +852,12 @@ def PR_counts_by_merged_status():
         x_groups = sorted(list(input_df[x_axis].astype(str).unique()))
         break
 
-    plot_width = 315 * len(x_groups)
+    width = 315 * len(x_groups)
 
-    if plot_width < 900:
-        plot_width = 900
+    if width < 900:
+        width = 900
     title_beginning = repo_dict[repo_id]
-    p = figure(x_range=x_groups, plot_height=350, plot_width=plot_width,
+    p = figure(x_range=x_groups, height=350, width=width,
                 title='{}: {}'.format(title_beginning,
                                         "Count of {} Pull Requests by Merged Status".format(description)),
                 toolbar_location=None)
@@ -962,7 +962,7 @@ def PR_counts_by_merged_status():
 
     plot = p
 
-    p = figure(width=plot_width, height=200, margin=(0, 0, 0, 0))
+    p = figure(width=width, height=200, margin=(0, 0, 0, 0))
     caption = "This graph shows the number of closed pull requests per year in " \
                 "four different categories. These four categories are All Merged, All Not Merged," \
                 " Slowest 20% Merged, and Slowest 20% Not Merged."
@@ -984,7 +984,7 @@ def PR_counts_by_merged_status():
         # opts = FirefoxOptions()
     # opts.add_argument("--headless")
     # driver = webdriver.Firefox(firefox_options=opts)
-    filename = export_png(grid, timeout=180)
+    filename = export_png(grid, timeout=400)
 
     return send_file(filename)
 
@@ -1029,9 +1029,9 @@ def mean_response_times_for_PR():
     driver_df = input_df.copy()  # deep copy input data so we do not alter the external dataframe
 
     title_beginning = '{}: '.format(repo_dict[repo_id])
-    plot_width = 950
-    p = figure(toolbar_location=None, y_range=sorted(driver_df[y_axis].unique()), plot_width=plot_width,
-                plot_height=450,  # 75*len(driver_df[y_axis].unique()),
+    width = 950
+    p = figure(toolbar_location=None, y_range=sorted(driver_df[y_axis].unique()), width=width,
+                height=450,  # 75*len(driver_df[y_axis].unique()),
                 title="{}Mean Response Times for Pull Requests {}".format(title_beginning, description))
 
     first_response_glyphs = []
@@ -1261,7 +1261,7 @@ def mean_response_times_for_PR():
 
     plot = p
 
-    p = figure(width=plot_width, height=200, margin=(0, 0, 0, 0))
+    p = figure(width=width, height=200, margin=(0, 0, 0, 0))
     caption = "This graph shows the average number of days between comments for all closed pull requests per month " \
                 "in four categories. These four categories are All Merged, All Not Merged, Slowest 20% Merged, " \
                 "and Slowest 20% Not Merged."
@@ -1283,7 +1283,7 @@ def mean_response_times_for_PR():
         # opts = FirefoxOptions()
     # opts.add_argument("--headless")
     # driver = webdriver.Firefox(firefox_options=opts)
-    filename = export_png(grid, timeout=180)
+    filename = export_png(grid, timeout=400)
 
     return send_file(filename)
 
@@ -1353,10 +1353,10 @@ def mean_days_between_PR_comments():
 
     data_dict = {'All': pr_closed, 'Slowest 20%': pr_slow20_not_merged.append(pr_slow20_merged, ignore_index=True)}
 
-    plot_width = 950
+    width = 950
     p1 = figure(x_axis_type="datetime",
                 title="{}: Mean {} Between Comments by Month Closed for {} Pull Requests".format(repo_dict[repo_id], time_unit, description),
-                plot_width=plot_width, x_range=(data_dict["All"][x_axis].min(), data_dict["All"][x_axis].max()), plot_height=500,
+                width=width, x_range=(data_dict["All"][x_axis].min(), data_dict["All"][x_axis].max()), height=500,
                 toolbar_location=None)
     colors = Category20[10][6:]
     color_index = 0
@@ -1425,7 +1425,7 @@ def mean_days_between_PR_comments():
 
     plot = p1
 
-    p = figure(width=plot_width, height=200, margin=(0, 0, 0, 0))
+    p = figure(width=width, height=200, margin=(0, 0, 0, 0))
     caption = "This graph shows the average number of days between comments for all" \
                 " closed pull requests per month in four categories. These four categories" \
                 " are All Merged, All Not Merged, Slowest 20% Merged, and Slowest 20% Not Merged."
@@ -1447,7 +1447,7 @@ def mean_days_between_PR_comments():
         # opts = FirefoxOptions()
     # opts.add_argument("--headless")
     # driver = webdriver.Firefox(firefox_options=opts)
-    filename = export_png(grid, timeout=180)
+    filename = export_png(grid, timeout=400)
 
     return send_file(filename)
 
@@ -1502,14 +1502,14 @@ def PR_time_to_first_response():
         colors = Colorblind[3]
 
     title_beginning = '{}: '.format(repo_dict[repo_id])
-    plot_width = 180 * 5
+    width = 180 * 5
     p = figure(x_range=(
     driver_df[x_axis].min() - datetime.timedelta(days=30), driver_df[x_axis].max() + datetime.timedelta(days=25)),
                 # (driver_df[y_axis].min(), driver_df[y_axis].max()),
                 toolbar_location=None,
                 title='{}Days to First Response for {} Closed Pull Requests'.format(title_beginning, description),
-                plot_width=plot_width,
-                plot_height=400, x_axis_type='datetime')
+                width=width,
+                height=400, x_axis_type='datetime')
 
     for index, group_by_group in enumerate(group_by_groups):
         p.scatter(x_axis, y_axis, color=colors[index], marker="square",
@@ -1562,7 +1562,7 @@ def PR_time_to_first_response():
 
     plot = p
 
-    p = figure(width=plot_width, height=200, margin=(0, 0, 0, 0))
+    p = figure(width=width, height=200, margin=(0, 0, 0, 0))
     caption = "This graph shows the days to first reponse for individual pull requests, either Merged or Not Merged."
     p = add_caption_to_plot(p, caption)
 
@@ -1582,7 +1582,7 @@ def PR_time_to_first_response():
         # opts = FirefoxOptions()
     # opts.add_argument("--headless")
     # driver = webdriver.Firefox(firefox_options=opts)
-    filename = export_png(grid, timeout=180)
+    filename = export_png(grid, timeout=400)
 
     return send_file(filename)
 
@@ -1686,8 +1686,8 @@ def average_PR_events_for_closed_PRs():
         #         data = {'Y' : y_groups}
         #         for group in y_groups:
         #             data[group] = driver_df_mean[group].tolist()
-        plot_width = 700
-        p = figure(y_range=y_groups, plot_height=500, plot_width=plot_width, x_range=x_groups,
+        width = 700
+        p = figure(y_range=y_groups, height=500, width=width, x_range=x_groups,
                     title='{}'.format(format(facet_group)))
 
         for y_group in y_groups:
@@ -1735,24 +1735,24 @@ def average_PR_events_for_closed_PRs():
     grid = gridplot(grid_array)
 
     # create caption plot
-    caption_plot = figure(width=plot_width, height=200, margin=(0, 0, 0, 0))
+    caption_plot = figure(width=width, height=200, margin=(0, 0, 0, 0))
     caption = "This graph shows the average count of several different event types for " \
                 "closed pull requests per year. It spilits the pull requests into two categories, " \
                 "Merged / Accepted, and Not Merged / Rejected, so the similarities and differences are clear."
 
     caption_plot.add_layout(Label(x=0, y=380, x_units='screen', y_units='screen', text='{}'.format(caption),
-                                    text_font='times', text_font_size='15pt', render_mode='css'))
+                                    text_font='times', text_font_size='15pt'))#, render_mode='css'))
 
     # caption_plot.outline_line_color = None
     caption_plot.toolbar_location = None
 
     # create title plot
-    title_plot = figure(width=plot_width, height=50, margin=(0, 0, 0, 0))
+    title_plot = figure(width=width, height=50, margin=(0, 0, 0, 0))
     title = '{}: Average Pull Request Event Types for {} Pull Requests'.format(repo_dict[repo_id], description)
 
     title_plot.add_layout(Label(x=550, y=0, x_units='screen', y_units='screen', text='{}'.format(title),
                                 text_font='times', text_font_size='17px',
-                                text_font_style='bold', render_mode='css'))
+                                text_font_style='bold'))#, render_mode='css'))
 
     # title_plot.outline_line_color = None
     title_plot.toolbar_location = None
@@ -1847,8 +1847,8 @@ def Average_PR_duration():
 
     source = ColumnDataSource(driver_df_mean)
     title_beginning = repo_dict[repo_id] + ':'
-    plot_width = 1100
-    p = figure(plot_width=plot_width, plot_height=300,
+    width = 1100
+    p = figure(width=width, height=300,
                 title="{} Mean Duration (Days) {} Pull Requests".format(title_beginning, description),
                 y_range=grouped_x_groups[::-1], x_range=y_groups,
                 toolbar_location=None, tools="")  # , x_axis_location="above")
@@ -1892,7 +1892,7 @@ def Average_PR_duration():
 
     plot = p
 
-    p = figure(width=plot_width, height=200, margin=(0, 0, 0, 0))
+    p = figure(width=width, height=200, margin=(0, 0, 0, 0))
     caption = "This graph shows the average duration of all closed pull requests. " \
                 "Red represents a slow response relative to the others, while blue a light blue " \
                 "represents a fast response relative to the others. Blank cells represents months " \
@@ -1914,9 +1914,9 @@ def Average_PR_duration():
         # opts = FirefoxOptions()
     # opts.add_argument("--headless")
     # driver = webdriver.Firefox(firefox_options=opts)
-    # newt = get_screenshot_as_png(grid, timeout=180, webdriver=selenium.webdriver.firefox.webdriver)
-    # filename = export_png(grid, timeout=180, webdriver=selenium.webdriver.firefox.webdriver)
-    filename = export_png(grid, timeout=180)
+    # newt = get_screenshot_as_png(grid, timeout=400, webdriver=selenium.webdriver.firefox.webdriver)
+    # filename = export_png(grid, timeout=400, webdriver=selenium.webdriver.firefox.webdriver)
+    filename = export_png(grid, timeout=400)
 
     # return sendfile(newt)
     return send_file(filename)

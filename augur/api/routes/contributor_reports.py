@@ -437,9 +437,9 @@ def compute_fly_by_and_returning_contributors_dfs(input_df, required_contributio
 
     return drive_by_df, repeats_df
 
-def add_caption_to_visualizations(caption, required_contributions, required_time, plot_width):
+def add_caption_to_visualizations(caption, required_contributions, required_time, width):
 
-    caption_plot = figure(width=plot_width, height=200, margin=(0, 0, 0, 0))
+    caption_plot = figure(width=width, height=200, margin=(0, 0, 0, 0))
 
     caption_plot.add_layout(Label(
         x=0,
@@ -448,8 +448,8 @@ def add_caption_to_visualizations(caption, required_contributions, required_time
         y_units='screen',
         text='{}'.format(caption.format(required_contributions, required_time)),
         text_font='times',
-        text_font_size='15pt',
-        render_mode='css'
+        text_font_size='15pt'#,
+        #render_mode='css'
     ))
     caption_plot.outline_line_color = None
 
@@ -719,9 +719,9 @@ def new_contributors_bar():
             # if the data set is large enough it will dynamically assign the width, if the data set is
             # too small it will by default set to 870 pixel so the title fits
             if len(data['new_contributor_counts']) >= 15:
-                plot_width = 46 * len(data['new_contributor_counts'])
+                width = 46 * len(data['new_contributor_counts'])
             else:
-                plot_width = 870
+                width = 870
 
                 # create a dict convert an integer number into a word
             # used to turn the rank into a word, so it is nicely displayed in the title
@@ -732,7 +732,7 @@ def new_contributors_bar():
             number = '{}'.format(num_conversion_dict[rank])
 
             # define pot for bar chart
-            p = figure(x_range=data['dates'], plot_height=400, plot_width=plot_width,
+            p = figure(x_range=data['dates'], height=400, width=width,
                         title="{}: {} {} Time Contributors Per {}".format(repo_dict[repo_id],
                                                                             contributor_type.capitalize(), number,
                                                                             group_by_format_string),
@@ -750,7 +750,7 @@ def new_contributors_bar():
 
             plot = format_new_cntrb_bar_charts(p, rank, group_by_format_string)
 
-            caption_plot = add_caption_to_visualizations(caption, required_contributions, required_time, plot_width)
+            caption_plot = add_caption_to_visualizations(caption, required_contributions, required_time, width)
 
             add_charts_and_captions_to_correct_positions(plot, caption_plot, rank, contributor_type, row_1,
                                                             row_2, row_3, row_4)
@@ -905,9 +905,9 @@ def new_contributors_stacked_bar():
             # if the data set is large enough it will dynamically assign the width, if the data set is too small it
             # will by default set to 870 pixel so the title fits
             if len(data['new_contributor_counts']) >= 15:
-                plot_width = 46 * len(data['new_contributor_counts']) + 200
+                width = 46 * len(data['new_contributor_counts']) + 200
             else:
-                plot_width = 870
+                width = 870
 
             # create list of values for data source dict
             actions_df_references = []
@@ -932,7 +932,7 @@ def new_contributors_stacked_bar():
 
             # y_max = 20
             # creates plot to hold chart
-            p = figure(x_range=data['dates'], plot_height=400, plot_width=plot_width,
+            p = figure(x_range=data['dates'], height=400, width=width,
                         title='{}: {} {} Time Contributors Per {}'.format(repo_dict[repo_id],
                                                                             contributor_type.capitalize(), number,
                                                                             group_by_format_string),
@@ -953,7 +953,7 @@ def new_contributors_stacked_bar():
 
             plot = format_new_cntrb_bar_charts(p, rank, group_by_format_string)
 
-            caption_plot = add_caption_to_visualizations(caption, required_contributions, required_time, plot_width)
+            caption_plot = add_caption_to_visualizations(caption, required_contributions, required_time, width)
 
             add_charts_and_captions_to_correct_positions(plot, caption_plot, rank, contributor_type, row_1,
                                                             row_2, row_3, row_4)
@@ -1026,14 +1026,14 @@ def returning_contributors_pie_chart():
 
     title_text_font_size = 18
 
-    plot_width = 850
+    width = 850
 
-    # sets plot_width to width of title if title is wider than 850 pixels
-    if len(title) * title_text_font_size / 2 > plot_width:
-        plot_width = int(len(title) * title_text_font_size / 2)
+    # sets width to width of title if title is wider than 850 pixels
+    if len(title) * title_text_font_size / 2 > width:
+        width = int(len(title) * title_text_font_size / 2)
 
     # creates plot for chart
-    p = figure(plot_height=450, plot_width=plot_width, title=title,
+    p = figure(height=450, width=width, title=title,
                 toolbar_location=None, x_range=(-0.5, 1.3), tools='hover', tooltips="@contributor_type",
                 margin=(0, 0, 0, 0))
 
@@ -1046,26 +1046,28 @@ def returning_contributors_pie_chart():
         # percentages
         p.add_layout(Label(x=-0.17, y=start_point + 0.13 * (len(data['percentage']) - 1 - i),
                             text='{}%'.format(data.iloc[i]['percentage']),
-                            render_mode='css', text_font_size='15px', text_font_style='bold'))
+                            #render_mode='css', 
+                            text_font_size='15px', text_font_style='bold'))
 
         # contributors
         p.add_layout(Label(x=0.12, y=start_point + 0.13 * (len(data['percentage']) - 1 - i),
                             text='{}'.format(data.iloc[i]['counts']),
-                            render_mode='css', text_font_size='15px', text_font_style='bold'))
+                            #render_mode='css', 
+                            text_font_size='15px', text_font_style='bold'))
 
     # percentages header
     p.add_layout(
-        Label(x=-0.22, y=start_point + 0.13 * (len(data['percentage'])), text='Percentages', render_mode='css',
+        Label(x=-0.22, y=start_point + 0.13 * (len(data['percentage'])), text='Percentages',# render_mode='css',
                 text_font_size='15px', text_font_style='bold'))
 
     # legend header
     p.add_layout(
-        Label(x=-0.43, y=start_point + 0.13 * (len(data['percentage'])), text='Category', render_mode='css',
+        Label(x=-0.43, y=start_point + 0.13 * (len(data['percentage'])), text='Category',# render_mode='css',
                 text_font_size='15px', text_font_style='bold'))
 
     # contributors header
     p.add_layout(
-        Label(x=0, y=start_point + 0.13 * (len(data['percentage'])), text='# Contributors', render_mode='css',
+        Label(x=0, y=start_point + 0.13 * (len(data['percentage'])), text='# Contributors', #render_mode='css',
                 text_font_size='15px', text_font_style='bold'))
 
     p.axis.axis_label = None
@@ -1088,7 +1090,7 @@ def returning_contributors_pie_chart():
                 Repeat contributors are contributors who have made {0} or more contributions in {1} days and their 
                 first contribution is in the specified time period."""
 
-    caption_plot = add_caption_to_visualizations(caption, required_contributions, required_time, plot_width)
+    caption_plot = add_caption_to_visualizations(caption, required_contributions, required_time, width)
 
     # put graph and caption plot together into one grid
     grid = gridplot([[plot], [caption_plot]])
@@ -1205,11 +1207,11 @@ def returning_contributors_stacked_bar():
     # if the data set is large enough it will dynamically assign the width, if the data set
     # is too small it will by default set to 780 pixel so the title fits
     if len(data['total_counts']) >= 13:
-        plot_width = 46 * len(data['total_counts']) + 210
+        width = 46 * len(data['total_counts']) + 210
     else:
-        plot_width = 780
+        width = 780
 
-    p = figure(x_range=data['dates'], plot_height=500, plot_width=plot_width,
+    p = figure(x_range=data['dates'], height=500, width=width,
                 title="{}: Fly By and Repeat Contributor Counts per {}".format(repo_dict[repo_id],
                                                                                 group_by_format_string),
                 toolbar_location=None, y_range=(0, max(total_counts) * 1.15), margin=(0, 0, 0, 0))
@@ -1262,7 +1264,7 @@ def returning_contributors_stacked_bar():
     specified time period. Repeat contributors are contributors who have made {0} or more contributions in {1} 
     days and their first contribution is in the specified time period."""
 
-    caption_plot = add_caption_to_visualizations(caption, required_contributions, required_time, plot_width)
+    caption_plot = add_caption_to_visualizations(caption, required_contributions, required_time, width)
 
     # put graph and caption plot together into one grid
     grid = gridplot([[plot], [caption_plot]])
