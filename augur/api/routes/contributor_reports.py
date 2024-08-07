@@ -448,7 +448,8 @@ def add_caption_to_visualizations(caption, required_contributions, required_time
         y_units='screen',
         text='{}'.format(caption.format(required_contributions, required_time)),
         text_font='times',
-        text_font_size='15pt'#,
+        text_font_size='12pt',
+        place='below'#,
         #render_mode='css'
     ))
     caption_plot.outline_line_color = None
@@ -732,7 +733,7 @@ def new_contributors_bar():
             number = '{}'.format(num_conversion_dict[rank])
 
             # define pot for bar chart
-            p = figure(x_range=data['dates'], height=400, width=width,
+            p = figure(x_range=data['dates'], height=250, width=width,
                         title="{}: {} {} Time Contributors Per {}".format(repo_dict[repo_id],
                                                                             contributor_type.capitalize(), number,
                                                                             group_by_format_string),
@@ -932,7 +933,7 @@ def new_contributors_stacked_bar():
 
             # y_max = 20
             # creates plot to hold chart
-            p = figure(x_range=data['dates'], height=400, width=width,
+            p = figure(x_range=data['dates'], height=250, width=width,
                         title='{}: {} {} Time Contributors Per {}'.format(repo_dict[repo_id],
                                                                             contributor_type.capitalize(), number,
                                                                             group_by_format_string),
@@ -1033,7 +1034,7 @@ def returning_contributors_pie_chart():
         width = int(len(title) * title_text_font_size / 2)
 
     # creates plot for chart
-    p = figure(height=450, width=width, title=title,
+    p = figure(height=300, width=width, title=title,
                 toolbar_location=None, x_range=(-0.5, 1.3), tools='hover', tooltips="@contributor_type",
                 margin=(0, 0, 0, 0))
 
@@ -1211,7 +1212,7 @@ def returning_contributors_stacked_bar():
     else:
         width = 780
 
-    p = figure(x_range=data['dates'], height=500, width=width,
+    p = figure(x_range=data['dates'], height=350, width=width,
                 title="{}: Fly By and Repeat Contributor Counts per {}".format(repo_dict[repo_id],
                                                                                 group_by_format_string),
                 toolbar_location=None, y_range=(0, max(total_counts) * 1.15), margin=(0, 0, 0, 0))
