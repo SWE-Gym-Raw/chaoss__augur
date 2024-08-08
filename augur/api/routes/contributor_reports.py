@@ -449,9 +449,8 @@ def add_caption_to_visualizations(caption, required_contributions, required_time
         text='{}'.format(caption.format(required_contributions, required_time)),
         text_font='times',
         text_font_size='12pt',
-        place='below'#,
         #render_mode='css'
-    ))
+    ), place='below'#,)
     caption_plot.outline_line_color = None
 
     return caption_plot

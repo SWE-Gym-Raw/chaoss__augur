@@ -339,9 +339,8 @@ def add_caption_to_plot(caption_plot, caption):
         text='{}'.format(caption),
         text_font='times',  # Use same font as paper
         text_font_size='12pt',
-        place='below'#,
         #render_mode='css'
-    ))
+    ),place='below'#,)
     caption_plot.outline_line_color = None
 
     return caption_plot
