@@ -26,4 +26,6 @@ fi
 
 echo $PATH
 
+#exec augur db upgrade-db-version
+
 exec augur backend start

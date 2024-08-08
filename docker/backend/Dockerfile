@@ -104,7 +104,7 @@ RUN ./scripts/docker/install-go.sh
 # RUN ./scripts/install/workers.sh 
 
 RUN mkdir -p repos/ logs/ /augur/facade/
-RUN augur db upgrade-db-version
+
 COPY ./docker/backend/entrypoint.sh /
 COPY ./docker/backend/init.sh /
 RUN chmod +x /entrypoint.sh /init.sh
