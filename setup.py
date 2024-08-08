@@ -42,9 +42,9 @@ setup(
         "coloredlogs==15.0", # 15.0.1
         "Beaker==1.11.0", # 1.11.0
         "SQLAlchemy==2.0.22", # 1.4.40
-        "itsdangerous==2.0.1", # 2.1.2
-        'Jinja2~=3.0.3',
-        "Flask==2.0.2", # 2.2.2
+        "itsdangerous==2.2.0", #2.0.1", # 2.1.2
+        'Jinja2~=3.1.4', #3.0.3',
+        "Flask==3.0.3", #2.0.2", # 2.2.2
         "Flask-Cors==4.0.1",
         "Flask-Login==0.5.0",
         "Flask-WTF==1.0.0",
@@ -52,7 +52,7 @@ setup(
         "numpy==1.26.0", # 1.23.2
         "requests==2.32.0", # 2.28.1
         "psycopg2-binary==2.9.3", #2.9.3 what is pscopg-binary 3.0.16
-        "click==8.0.3", # 8.1.3
+        "click==8.1.7", #8.0.3", # 8.1.3
         "psutil==5.8.0", # 5.9.1
         "gunicorn==22.0.0", # 20.1.0
         "six==1.15.0", # 1.16.0
@@ -67,7 +67,7 @@ setup(
         "nltk==3.6.6", # 3.7
         "h5py==3.10.0", # 3.7
         "scipy>=1.10.0, <1.13.0", # 1.9.0
-        "blinker==1.4", # 1.5
+        "blinker==1.8.2", #1.4", # 1.5
         "protobuf<3.22", # 4.21.5
         "slack==0.0.2", # 0.0.2
         "boto3==1.17.57", # 1.24.56
@@ -83,7 +83,7 @@ setup(
         "tornado==6.4.1", # added because it sometimes errors when tornado is not 6.1 even though nothing we install depends on it
         "pylint==2.15.5",
         "dnspython==2.6.1",
-        'Werkzeug~=2.0.0',
+        'Werkzeug~=3.0.3', #2.0.0',
         "pylint==2.15.5",
 	    "mdpdf==0.0.18",
         "typing-extensions==4.7.1",
