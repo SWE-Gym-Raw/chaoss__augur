@@ -333,7 +333,7 @@ def add_caption_to_plot(caption_plot, caption):
 
     caption_plot.add_layout(Label(
         x=0,  # Change to shift caption left or right
-        y=160,
+        y=400, #160
         x_units='screen',
         y_units='screen',
         text='{}'.format(caption),

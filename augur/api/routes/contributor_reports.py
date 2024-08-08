@@ -443,7 +443,7 @@ def add_caption_to_visualizations(caption, required_contributions, required_time
 
     caption_plot.add_layout(Label(
         x=0,
-        y=160,
+        y=400, #160,
         x_units='screen',
         y_units='screen',
         text='{}'.format(caption.format(required_contributions, required_time)),
