@@ -82,11 +82,27 @@ class GithubDataAccess:
         except (KeyError, ValueError):
             raise Exception(f"Unable to parse 'last' url from response: {response.links['last']}")
 
+    # def get_resource(self, url):
+
+    #     response = self.make_request_with_retries(url)
+
+    #     return response.json()  
+    
+    ## The old method returned a lot of ambiguous exceptions. 
+    ## This approach tries to check and be more specific. 
     def get_resource(self, url):
-
         response = self.make_request_with_retries(url)
-
-        return response.json()  
+        
+        # Check if the response is empty
+        if response.text.strip() == "":
+            self.logger.error(f"Received empty response from URL: {url}")
+            raise Exception(f"Received empty response from URL: {url}")
+        
+        try:
+            return response.json()
+        except json.JSONDecodeError:
+            self.logger.error(f"Failed to decode JSON from response: {response.text}")
+            raise Exception(f"Failed to decode JSON from URL: {url}")
     
     # TODO: Handle timeout exceptions better
     def make_request(self, url, method="GET", timeout=100):

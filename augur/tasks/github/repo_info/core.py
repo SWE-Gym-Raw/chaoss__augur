@@ -21,24 +21,41 @@ def query_committers_count(key_auth, logger, owner, repo):
     
     return github_data_access.get_resource_count(url)
 
+# def get_repo_data(logger, url, response):
+#     data = {}
+#     try:
+#         data = response.json()
+#     except:
+#         data = json.loads(json.dumps(response.text))
+
+#     if 'errors' in data:
+#         logger.info("Error!: {}".format(data['errors']))
+#         raise Exception(f"Github returned error response! {data['errors']}")
+
+#     if 'id' not in data:
+#         logger.info("Request returned a non-data dict: {}\n".format(data))
+#         if data['message'] == 'Not Found':
+#             raise Exception(f"Github repo was not found or does not exist for endpoint: {url}\n")
+
+#     return data
 def get_repo_data(logger, url, response):
     data = {}
     try:
         data = response.json()
-    except:
-        data = json.loads(json.dumps(response.text))
-
+    except json.JSONDecodeError:
+        logger.error(f"Failed to decode JSON from response for URL {url}: {response.text}")
+        raise Exception(f"Failed to decode JSON from URL {url}")
+    
     if 'errors' in data:
-        logger.info("Error!: {}".format(data['errors']))
-        raise Exception(f"Github returned error response! {data['errors']}")
-
+        logger.error(f"Error in response from URL {url}: {data['errors']}")
+        raise Exception(f"GitHub returned error response: {data['errors']}")
+    
     if 'id' not in data:
-        logger.info("Request returned a non-data dict: {}\n".format(data))
-        if data['message'] == 'Not Found':
-            raise Exception(f"Github repo was not found or does not exist for endpoint: {url}\n")
-
+        logger.error(f"Response from URL {url} does not contain an 'id': {data}")
+        if data.get('message') == 'Not Found':
+            raise Exception(f"GitHub repo was not found or does not exist for endpoint: {url}")
+    
     return data
-
 
 def is_forked(key_auth, logger, owner, repo): #/repos/:owner/:repo parent
     logger.info('Querying parent info to verify if the repo is forked\n')
