@@ -30,6 +30,9 @@ from augur.tasks.util.collection_util import *
 from augur.tasks.git.util.facade_worker.facade_worker.utilitymethods import get_facade_weight_time_factor
 from augur.application.db.lib import execute_sql, get_session
 
+from augur.tasks.github.issues import collect_issues
+from augur.tasks.github.pull_requests.tasks import process_pull_requests
+
 RUNNING_DOCKER = os.environ.get('AUGUR_DOCKER_DEPLOY') == "1"
 
 CELERY_GROUP_TYPE = type(group())
