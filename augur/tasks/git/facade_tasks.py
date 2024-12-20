@@ -193,7 +193,8 @@ def facade_fetch_missing_commit_messages(repo_git):
             msg_record = {
                 'repo_id' : repo.repo_id,
                 'cmt_msg' : commit_message,
-                'cmt_hash' : hash,
+                #'cmt_hash' : hash,
+                'cmt_hash': escaped_hash if isinstance(escaped_hash, str) else escaped_hash['cmt_commit_hash'],
                 'tool_source' : 'Facade',
                 'tool_version' : '0.78?',
                 'data_source' : 'git',
